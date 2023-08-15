@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { isAuthenticatedMatchGuard } from './auth/guards/is-authenticated-match.guard';
+
 const routes: Routes = [
   {
     path: 'auth',
@@ -9,6 +11,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    canMatch: [isAuthenticatedMatchGuard],
   },
   { path: '**', redirectTo: 'auth', },
 ];

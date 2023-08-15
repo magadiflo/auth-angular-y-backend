@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2'
 import { AuthService } from '../../services/auth.service';
@@ -14,6 +15,7 @@ export class LoginPageComponent {
 
   private _fb = inject(FormBuilder);
   private _authService = inject(AuthService);
+  private _router = inject(Router);
 
   public myForm: FormGroup = this._fb.nonNullable.group({
     email: ['martin@gmail.com', [Validators.required, Validators.email]],
@@ -26,6 +28,7 @@ export class LoginPageComponent {
       .subscribe({
         next: isAuthenticated => {
           console.log({ isAuthenticated });
+          this._router.navigate(['/dashboard']);
         },
         error: err => {
           console.log({ errorComponente: err });
