@@ -25,13 +25,7 @@ export class AuthService {
     const body = { email, password };
     return this._http.post<LoginResponse>(url, body)
       .pipe(
-        tap(({ user, token }) => {
-          this._currentUser.set(user);
-          this._authStatus.set(AuthStatus.authenticated);
-          localStorage.setItem('token', token);
-          console.log({ user, token });
-        }),
-        map(resp => true),
+        map(({ user, token }) => this._setAuthentication(user, token)),
         catchError(err => throwError(() => err.error.message)),
       );
   }
@@ -47,18 +41,20 @@ export class AuthService {
 
     return this._http.get<CheckTokenResponse>(url, { headers })
       .pipe(
-        tap(({ user, token }) => {
-          this._currentUser.set(user);
-          this._authStatus.set(AuthStatus.authenticated);
-          localStorage.setItem('token', token);
-          console.log({ user, token });
-        }),
-        map(resp => true),
+        map(({ user, token }) => this._setAuthentication(user, token)),
         catchError(() => {
           this._authStatus.set(AuthStatus.notAuthenticated);
           return of(false);
         })
       );
+  }
+
+  private _setAuthentication(user: User, token: string): boolean {
+    this._currentUser.set(user);
+    this._authStatus.set(AuthStatus.authenticated);
+    localStorage.setItem('token', token);
+
+    return true;
   }
 
 }
