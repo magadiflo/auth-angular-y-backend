@@ -18,7 +18,7 @@ export class AuthService {
 
   //* Al exterior
   public currentUser = computed(() => this._currentUser());
-  public authStatus = computed(() => this._authStatus);
+  public authStatus = computed(() => this._authStatus());
 
   login(email: string, password: string): Observable<boolean> {
     const url = `${this._baseUrl}/auth/login`;
