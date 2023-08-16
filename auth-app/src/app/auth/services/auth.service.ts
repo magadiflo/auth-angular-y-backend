@@ -20,6 +20,14 @@ export class AuthService {
   public currentUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
 
+  constructor() {
+    // Apenas se inicie este servicio nos subscribimos al checkAuthStatus()
+    // para ver el cambio del estado de la variable _authStatus  y por supuesto
+    // el cambio de la variable pública authStatus
+    this.checkAuthStatus()
+      .subscribe();
+  }
+
   login(email: string, password: string): Observable<boolean> {
     const url = `${this._baseUrl}/auth/login`;
     const body = { email, password };
