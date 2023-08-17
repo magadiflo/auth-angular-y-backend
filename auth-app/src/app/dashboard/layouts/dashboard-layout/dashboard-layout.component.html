@@ -1,9 +1,10 @@
 <h1>Dashboard</h1>
 <hr>
-<a [routerLink]="['/auth', 'login']">Ir al login</a>
 <h3>User</h3>
 <pre>
   <code>
     {{ user() | json }}
   </code>
 </pre>
+<br>
+<button (click)="onLogout()">Cerrar Sessión</button>
