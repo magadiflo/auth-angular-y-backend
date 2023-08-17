@@ -25,4 +25,27 @@ usaba el **localhost** pero tuve que cambiarlo colocando la dirección ip **127.
 3. Finalmente iniciamos el backend ejecutando el siguiente comando: ``npm run start:dev``
 
 
+## Registrando Usuario en Mongo desde Backend
 
+Una vez levantada el proyecto, registramos un usuarios a nuestro backend:
+
+````bash
+curl -v -X POST -H "Content-Type: application/json" -d "{\"name\": \"Karen\", \"email\": \"karen@gmail.com\", \"password\": \"123456\"}" http://localhost:3000/auth/register
+
+--- Response
+>
+< HTTP/1.1 201 Created
+<
+{
+    "user":
+        {
+            "email":"karen@gmail.com",
+            "name":"Karen",
+            "isActive":true,
+            "roles":["user"],
+            "_id":"64d51e60d22a330cbd68a7d8",
+            "__v":0
+        },
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDUxZTYwZDIyYTMzMGNiZDY4YTdkOCIsImlhdCI6MTY5MTY4ODU0NCwiZXhwIjoxNjkxNzEwMTQ0fQ.U6-HOwz0HWrtjMVvjnRTQlzrYyrJjF7nVTkzORqVoBY"
+}
+````
