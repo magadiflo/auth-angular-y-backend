@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { isAuthenticatedMatchGuard } from './auth/guards/is-authenticated-match.guard';
+import { isAuthenticatedMatchGuard, isNotAuthenticatedMatchGuard } from './auth/guards';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    canMatch: [isNotAuthenticatedMatchGuard],
   },
   {
     path: 'dashboard',

@@ -10,10 +10,6 @@ export const isAuthenticatedMatchGuard: CanMatchFn = (route, segments) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.authStatus() === AuthStatus.checking) {
-    return false;
-  }
-
   if (authService.authStatus() === AuthStatus.authenticated) {
     return true;
   }
