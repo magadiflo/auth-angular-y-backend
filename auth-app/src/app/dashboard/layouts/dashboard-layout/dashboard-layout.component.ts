@@ -1,0 +1,21 @@
+import { Component, computed, inject } from '@angular/core';
+
+import { AuthService } from '../../../auth/services/auth.service';
+
+
+@Component({
+  selector: 'app-dashboard-layout',
+  templateUrl: './dashboard-layout.component.html',
+  styles: [
+  ]
+})
+export class DashboardLayoutComponent {
+
+  private _authService = inject(AuthService);
+  public user = computed(() => this._authService.currentUser());
+
+  onLogout() {
+    this._authService.logout();
+  }
+
+}
